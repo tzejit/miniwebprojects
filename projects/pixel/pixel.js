@@ -46,7 +46,7 @@ function gridGenerator(num, container) {
     container.appendChild(gridBox);
   }
   container.style.gridTemplateColumns = `repeat(${num} ,auto)`;
-  document.documentElement.style.setProperty('--grid-size', 80/num + "vh");
+  document.documentElement.style.setProperty('--grid-size', 70/num + "vh");
 }
 
 gridGenerator(16, container);
