@@ -1,0 +1,191 @@
+@font-face {
+  font-family: Hack;
+  src: url(web/fonts/hack-regular.woff);
+}
+
+html, body, h1, h2, div {
+  padding:0px;
+  margin:0px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+
+.header {
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 3 1 0;
+  margin-top: 5vh;
+}
+
+.title {
+  height: fit-content;
+  border-right: solid #000;
+  padding-right: 1px;
+  animation-name: blink;
+  animation-duration: 900ms;
+  animation-iteration-count: infinite;
+}
+
+.menu, .menu_index {
+  display: flex;
+  font-size: medium;
+  font-weight: 600;
+  padding-top: 5vh;
+  gap: 5vw;
+}
+
+.menu_item {
+  height: fit-content;
+  border-right: solid transparent;
+  padding-right: 1px;
+  text-decoration: none;
+  color: #000;
+}
+
+.menu_item:hover {
+
+  animation-name: blink;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+}
+
+.container {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: larger;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  padding: 10vh 3vw;
+  margin: auto 10vw;
+  margin-bottom: 5vh;
+  flex: 8 1 auto;
+  opacity: 0;
+  animation: fadein 1300ms linear 200ms 1 normal forwards;
+}
+
+
+@keyframes blink {
+  0% {border-color: transparent;}
+  50% {border-color: #000;}
+  100% {border-color: transparent;}
+}
+
+@keyframes fadein {
+  0%{opacity: 0;}
+  50% {opacity: 50;}
+  100% {opacity: 100;}
+}
+
+.content {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.footer {
+  background-color: rgb(240, 234, 241);
+  display: flex;
+  justify-content: center;
+  flex: 0.2 1 auto;
+  gap: 10px;
+}
+
+img {
+  margin-top: 2vh;
+  height: 5vh;
+  width: 5vh;
+}
+
+p {
+  line-height: 2em;
+  font-weight: 500;
+}
+
+ul {
+  list-style: none;
+  font-size: medium;
+  margin: 0;
+  border-right: #FFF solid;
+  border-left: #FFF solid;
+  padding-right: 1em;
+}
+
+li {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-weight: 500;
+}
+
+.dropdown {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+  background-color: rgb(240, 234, 241);
+}
+
+.collapsible {  
+  cursor: pointer;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-right: #FFF solid;
+  border-left: #FFF solid;
+  background-color: rgb(240, 234, 241);
+  font-weight: 600;
+  flex: 0 0 0;
+}
+
+.collapsiblecontainer {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.active, .collapsible:hover {
+  background-color: rgb(218, 187, 196);
+}
+
+.eduline {
+  border-right: #000 dashed;
+  padding-left: 1.5em;
+}
+
+.lineandcontent {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.educontent {
+  padding: 5vh;
+  padding-left: 5vw;
+  flex: 1 0 0;
+}
+
+.achievement {
+  margin-top: 5px;
+}
+
+.project {
+  display: flex;
+  background-color: aliceblue;
+  border-radius: 0.5em;
+  flex-direction: column;
+  padding-left: 5vw;
+  padding-top: 3vh;
+  margin-bottom: 2vh;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+}
