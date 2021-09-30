@@ -1,13 +1,41 @@
 const gameBoard = (() => {
-  const board = document.createElement("div");
-  board.classList.add("board");
-  for (let i = 0; i < 9; i++) {
-    let square = document.createElement("div");
-    square.innerText= " ";
-    square.classList += ("square n" + i);
-    board.appendChild(square);
+  const createBoard = () => {
+    const board = document.createElement("div");
+    board.classList.add("board");
+    for (let i = 0; i < 9; i++) {
+      let square = document.createElement("div");
+      square.innerText= " ";
+      square.classList += ("square n" + i);
+      board.appendChild(square);
+    }
+    document.querySelector(".boardcontainer").appendChild(board);
+    document.querySelector(".player").addEventListener("click", ()=>{
+      gameController.play(playerFactory(true,"x", "test1"),playerFactory(false,"o","p2"),gameBoard)
+    })
+    document.querySelector(".cpu").addEventListener("click", ()=>{
+      gameController.playCpu(playerFactory(true,"x", "test1"),cpu,gameBoard)
+    })
+    document.querySelector(".reset").addEventListener("click", ()=>{
+      gameBoard.reset();
+    })
   }
-  document.querySelector("body").appendChild(board);
+  createBoard();
+
+  const displayEnd = ((isWin, name) => {
+    if (isWin) {
+      document.querySelector(".display").innerText = `${name} has won`
+    } else {
+      document.querySelector(".display").innerText = `Draw`
+    }
+    return
+  })
+
+  const reset = ()=>{
+    document.querySelector(".boardcontainer").innerHTML="";
+    createBoard();
+  }
+
+  return {displayEnd, reset}
 })();
 
 const gameController =(()=>{
@@ -53,45 +81,49 @@ const gameController =(()=>{
 
   const registerClick = (e, player, otherplayer) => {
     if ("square" == e.target.classList[0] && updateSquare(e.target.classList[1], player, otherplayer)) {
-      if (win()) {
-        console.log(`${player.name} win`);
-        return true;
-      }
-      return false;
+      return true;
     }
+    return false;
   }
 
-  const play = (player1, player2) => {
-    document.addEventListener("click", (e) => {
+  const play = (player1, player2, board) => {
+    document.querySelector(".board").addEventListener("click", (e) => {
       if (player1.turn) {
-        if (registerClick(e, player1, player2) || draw()) {
-          player2.turn = false;
+        if (registerClick(e, player1, player2)) {
+          if (draw() || win()) {
+            player2.turn = false;
+            board.displayEnd(win(), player1.name);
+            return
+          }
         } 
-        if (draw()) {
-          console.log("draw");
-        }
       } else if (player2.turn) {
-        if (registerClick(e, player2, player1) || draw()) {
-          player1.turn = false;
-        }
-        if (draw()) {
-          console.log("draw");
+        if (registerClick(e, player2, player1)) {
+          if (draw() || win()) {
+            player1.turn = false;
+            board.displayEnd(win(), player2.name);
+            return
+          }
         }
       }
     });
   }
 
-  const playCpu = (player1, cpu) => {
-    document.addEventListener("click", (e) => {
+  const playCpu = (player1, cpu, board) => {
+    document.querySelector(".board").addEventListener("click", (e) => {
       if (player1.turn) {
-        if (registerClick(e, player1, cpu) || draw()) {
-          cpu.turn=false;
+        if (registerClick(e, player1, cpu)) {
+          if (draw() || win()) {
+            board.displayEnd(win(), player1.name);
+            return
+          }
+          updateSquare(`n${cpu.cpuMoveIndex(getSquares())}`, cpu, player1)
+          if (draw() || win()) {
+            player1.turn = false;
+            board.displayEnd(win(), "CPU");
+            return
+          }
         } 
-        if (draw()) {
-          console.log("draw");
-        }
       } 
-      updateSquare(`n${cpu.cpuMoveIndex(getSquares())}`, cpu, player1)
     });
   }
 
@@ -182,7 +214,6 @@ const cpu = (()=>{
   return {cpuMoveIndex, sign}
 })()
 
-let a = playerFactory(true,"x", "test1");
-let b = playerFactory(false,"o","p2")
-gameController.playCpu(a, cpu)
+
+
 
