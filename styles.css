@@ -3,6 +3,20 @@
   src: url(web/fonts/hack-regular.woff);
 }
 
+/* fjalla-one-regular - latin */
+@font-face {
+  font-family: 'Fjalla One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('web/fonts/fjallaOne/fjalla-one-v8-latin-regular.svg#FjallaOne') format('svg'); /* Legacy iOS */
+}
+
 html, body, h1, h2, div {
   padding:0px;
   margin:0px;
@@ -17,6 +31,7 @@ body {
 
 .header {
   font-family: Helvetica, Arial, sans-serif;
+  font-weight: 100;
   display: flex;
   flex-direction: column;
   justify-content: center;

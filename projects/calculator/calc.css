@@ -1,0 +1,47 @@
+body {
+  align-content: center;
+}
+
+.calc {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(217, 236, 253);
+  height: 70vh;
+  width: 40vh;
+  margin: auto;
+  margin-top: 10vh;
+  padding: 1em;
+  border-radius: 1em;
+}
+
+.display {
+  flex: 1;
+  background-color: rgb(232, 245, 255);
+  margin-bottom: 1em;
+  border-radius: 1em;
+}
+
+.body {
+  flex: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(4, auto);
+  grid-row-gap: 0.5em;
+  grid-column-gap: 0.5em;
+}
+
+button {
+  padding: 0;
+  background-color: rgb(246, 246, 246);
+  border: none;
+  outline: none;
+  border-radius: 0.4em;
+}
+
+button:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.num {
+  background-color: rgb(255, 242, 242);
+}
