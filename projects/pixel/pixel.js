@@ -5,6 +5,7 @@ let grid = true;
 let add = true;
 let darken = false;
 let lighten = false;
+
 function gridGenerator(num, container) {
   for (let i = 0; i < num*num; i++ ) {
     const gridBox = document.createElement("div");
@@ -43,10 +44,18 @@ function gridGenerator(num, container) {
         gridBox.style.backgroundColor = ""; 
       }
     })
+    container.dataset.num = num;
     container.appendChild(gridBox);
   }
   container.style.gridTemplateColumns = `repeat(${num} ,auto)`;
-  document.documentElement.style.setProperty('--grid-size', 70/num + "vh");
+  let h = document.documentElement.clientHeight > document.documentElement.clientWidth ? "vw" : "vh"
+  document.documentElement.style.setProperty('--grid-size', 70/num + h);
+  if (h == "vw") {
+    document.documentElement.style.setProperty('--font-size', 0.02*document.documentElement.clientWidth+ "px")
+  }
+  else {
+    document.documentElement.style.setProperty('--font-size', 0.02*document.documentElement.clientHeight + "px")
+  }
 }
 
 gridGenerator(16, container);
@@ -56,6 +65,18 @@ let addBut = document.querySelector(".add");
 let darkenBut = document.querySelector(".darken");
 let lightenBut = document.querySelector(".lighten");
 let gridlineBut = document.querySelector(".remove-gridline");
+
+window.addEventListener('resize', ()=> {
+  let h = document.documentElement.clientHeight > document.documentElement.clientWidth ? "vw" : "vh"
+  document.documentElement.style.setProperty('--grid-size', 70/container.dataset.num + h);
+  if (h == "vw") {
+    document.documentElement.style.setProperty('--font-size', 0.02*document.documentElement.clientWidth+ "px")
+  }
+  else {
+    document.documentElement.style.setProperty('--font-size', 0.02*document.documentElement.clientHeight + "px")
+  }
+
+});
 
 addBut.addEventListener("click", ()=> {
   darken = false;
