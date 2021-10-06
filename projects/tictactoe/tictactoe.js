@@ -1,5 +1,6 @@
 const gameBoard = (() => {
   const createBoard = () => {
+    document.querySelector(".display").innerText = "";
     const board = document.createElement("div");
     board.classList.add("board");
     for (let i = 0; i < 9; i++) {
@@ -8,18 +9,18 @@ const gameBoard = (() => {
       square.classList += ("square n" + i);
       board.appendChild(square);
     }
+    const reset = document.createElement("button");
+    const butdiv = document.createElement("div");
+    butdiv.classList.add("butdiv");
+    reset.classList.add("reset");
+    reset.innerText = "Go back to Menu";
+    butdiv.appendChild(reset);
+    document.querySelector(".boardcontainer").appendChild(butdiv);
     document.querySelector(".boardcontainer").appendChild(board);
-    document.querySelector(".player").addEventListener("click", ()=>{
-      gameController.play(playerFactory(true,"x", "test1"),playerFactory(false,"o","p2"),gameBoard)
-    })
-    document.querySelector(".cpu").addEventListener("click", ()=>{
-      gameController.playCpu(playerFactory(true,"x", "test1"),cpu,gameBoard)
-    })
-    document.querySelector(".reset").addEventListener("click", ()=>{
+    reset.addEventListener("click", ()=>{
       gameBoard.reset();
     })
   }
-  createBoard();
 
   const displayEnd = ((isWin, name) => {
     if (isWin) {
@@ -27,15 +28,36 @@ const gameBoard = (() => {
     } else {
       document.querySelector(".display").innerText = `Draw`
     }
-    return
+    const replayBut = document.createElement("button");
+    replayBut.classList.add("replay");
+    replayBut.innerText = "Play Again!";
+    replayBut.addEventListener("click", () => {
+      replay()
+    })
+    document.querySelector(".butdiv").appendChild(replayBut);
   })
 
   const reset = ()=>{
-    document.querySelector(".boardcontainer").innerHTML="";
-    createBoard();
+    document.querySelector(".boardcontainer").innerHTML = "";
+    document.querySelector(".display").innerText = "";
+    gameController.reset();
+    webController.createMenu();
   }
 
-  return {displayEnd, reset}
+  const replay = () => {
+    document.querySelectorAll(".square").forEach( b => {
+      b.innerText = "";
+    })
+    document.querySelector(".display").innerText = "";
+    document.querySelector(".replay").remove();
+    gameController.reset();
+    if (webController.getCurr() == "cpu")
+      gameController.playCpu(playerFactory(true,"x", "Player"),cpu,gameBoard)
+    else
+      gameController.play(playerFactory(true,"x", "Player1"),playerFactory(false,"o","Player2"),gameBoard)
+  }
+
+  return {displayEnd, reset, createBoard}
 })();
 
 const gameController =(()=>{
@@ -127,7 +149,11 @@ const gameController =(()=>{
     });
   }
 
-  return {play, getSquares, win, draw, playCpu};
+  const reset = () => {
+    squares = new Array(9);
+  }
+
+  return {play, getSquares, win, draw, playCpu, reset};
 
 })()
 
@@ -213,6 +239,47 @@ const cpu = (()=>{
 
   return {cpuMoveIndex, sign}
 })()
+
+const webController = (() => {
+  let curr = null;
+
+  const createMenu = () => {
+    document.querySelector(".display").innerText = "Tic-Tac-Toe";
+    const typeMenu = document.createElement("div");
+    typeMenu.classList.add("type");
+    playerbut = document.createElement("button");
+    playerbut.classList.add("player")
+    playerbut.innerText = "Player"
+    playerbut.addEventListener("click", ()=>{
+      typeMenu.remove();
+      gameBoard.createBoard();
+      gameController.play(playerFactory(true,"x", "Player1"),playerFactory(false,"o","Player2"),gameBoard)
+      curr = "player";
+
+    })
+    cpubut = document.createElement("button");
+    cpubut.classList.add("cpu")
+    cpubut.innerText = "CPU"
+    cpubut.addEventListener("click", ()=>{
+      typeMenu.remove();
+      gameBoard.createBoard();
+      gameController.playCpu(playerFactory(true,"x", "Player"),cpu,gameBoard)
+      curr = "cpu";
+    })
+    typeMenu.appendChild(playerbut);
+    typeMenu.appendChild(cpubut);
+    document.querySelector("body").appendChild(typeMenu);
+  }
+
+  createMenu();
+
+  const getCurr = () => {
+    return curr;
+  }
+
+  return {createMenu, getCurr}
+})();
+
 
 
 

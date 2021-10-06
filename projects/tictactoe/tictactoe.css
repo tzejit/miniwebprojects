@@ -1,5 +1,20 @@
 * {
   box-sizing: border-box;
+  font-family: 'Fjalla One', Arial, Helvetica, sans-serif;
+  color: rgb(168, 164, 164)
+}
+
+@font-face {
+  font-family: 'Fjalla One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fjallaOne/fjalla-one-v8-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local(''),
+       url('fjallaOne/fjalla-one-v8-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fjallaOne/fjalla-one-v8-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fjallaOne/fjalla-one-v8-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('fjallaOne/fjalla-one-v8-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('fjallaOne/fjalla-one-v8-latin-regular.svg#FjallaOne') format('svg'); /* Legacy iOS */
 }
 
 body {
@@ -10,42 +25,89 @@ body {
   height: 100vh;
   width: 100vw;
   margin: 0;
+  background-color: rgb(59, 58, 58);
 }
 
 .board {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  height: 40vh;
-  width: 40vh;
+  height: 40vmin;
+  width: 40vmin;
   align-self: center;
   flex: 1, 1, auto;
 }
 
 .square {
   display: flex;
-  background-color: antiquewhite;
-  border: 1px solid beige;
+  background-color: rgb(34, 34, 34);
+  border: 1px solid rgb(47, 47, 47);
   margin: 0;
   padding: 0;
   justify-content: center;
   align-items: center;
-  font-size: xx-large;
+  font-size: 5vmin;
 }
 
 .square:hover {
-  background-color: aliceblue;
+  background-color: rgb(124, 124, 124);
+  color: black;
 }
 
 .display {
   text-align: center;
   font-size: larger;
-  height: 10vh;
   flex: 0.3;
 }
 
-button {
+.type {
   flex: 1, 1, auto;
+}
+
+.boardcontainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vmin;
+}
+
+.butdiv {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2vmin;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
   width: fit-content;
-  align-self: center;
+  padding: 2vmin 5vmin;
+  background-color: rgb(0, 0, 0);
+  flex: 1, 1, auto;
+  text-align: center;
+  border-radius: 2vmin;
+  font-size: 3vmin;
+}
+
+button:hover {
+  background-color: rgb(251, 166, 190);
+  color: black
+}
+
+.type {
+  display: flex;
+  gap: 1vmin;
+}
+
+.player, .cpu {
+  align-self: end;
+  font-size: 8vmin;
+}
+
+.display {
+  font-size: 10vmin;
 }
