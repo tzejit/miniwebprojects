@@ -14,8 +14,6 @@
 
 * {
   font-family: 'PixelPirate', Arial, sans-serif;
-  font-size:1em;
-  
 }
 
 body {
@@ -36,11 +34,11 @@ h1 {
   box-sizing: border-box;
   margin: 0;
   height: 100vh;
+  width: 100vw;
   background-color: #b8ddff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: auto;
 }
 
 .content {
@@ -48,12 +46,14 @@ h1 {
   align-items: center;
   justify-content: center;
   flex: 1, 1, auto;
+  padding: max(1px, 1em);
 }
 
 .grid-container {
   display: inline-grid;
   grid-gap: 0px;
   padding-left: var(--grid-size);
+  flex: 1, 1, auto;
 }
 
 .grid-box {
@@ -75,6 +75,7 @@ h1 {
   opacity: 0.7; 
   -webkit-transition: .2s;
   transition: opacity .2s;
+  display: flex;
 }
 
 .input-size:hover {
@@ -84,8 +85,9 @@ h1 {
 .input-size::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 2em;
-  height: 2em; 
+  flex: 1, 1, auto;
+  height: 1em;
+  width: 1em;
   background: rgb(251, 166, 190);
   cursor: pointer; 
 }
@@ -93,14 +95,15 @@ h1 {
 .settings {
   display: flex;
   flex-direction: column;
-  align-items:  stretch;
   gap: var(--font-size);
+  flex: 1, 1, auto;
+  width: 15vw;
 }
 
 .slider {
   display: flex;
   flex-direction: column;
-  flex: 1, 1, auto;
+  flex: 1, 1, 0;
 }
 
 button {
@@ -109,8 +112,9 @@ button {
   outline: none;
   padding: 1em;
   background-color: rgb(234, 238, 241);
-  flex: 1, 1, auto;
+  flex: 1, 1, 0;
   font-size:  var(--font-size);
+  text-align: center;
 }
 
 button:hover {
@@ -123,9 +127,16 @@ button:hover {
 
 .colour-setting {
   display: flex;
-  flex: 1, 1, auto;
+  flex: 1, 1, 0;
   justify-content: space-between;
   align-items: center;
+  font-size:  var(--font-size);
+}
+
+
+.label {
+  flex: 1, 1, auto;
+  display: inline-block;
   font-size:  var(--font-size);
 }
 
