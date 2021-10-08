@@ -140,8 +140,8 @@ ul {
   list-style: none;
   font-size: var(--font-size);
   margin: 0;
-  border-right: var(--background-colour) solid;
-  border-left: var(--background-colour)  solid;
+  border-right: var(--collapsible-hover) solid;
+  border-left: var(--collapsible-hover)  solid;
   padding-right: 1em;
 }
 
