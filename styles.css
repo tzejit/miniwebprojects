@@ -1,5 +1,14 @@
+:root {
+  --background-colour: rgb(32, 32, 32);
+  --font-colour: rgb(201, 204, 207);
+  --cursor-colour:rgb(128, 74, 123);
+  --font-size: 1em;
+  --collapsible: rgb(99, 69, 95);
+  --collapsible-hover: rgb(122, 92, 119);
+}
+
 @font-face {
-  font-family: Hack;
+  font-family: 'Hack';
   src: url(web/fonts/hack-regular.woff);
 }
 
@@ -20,6 +29,8 @@
 html, body, h1, h2, div {
   padding:0px;
   margin:0px;
+  background-color: var(--background-colour);
+  color: var(--font-colour);
 }
 
 body {
@@ -42,7 +53,7 @@ body {
 
 .title {
   height: fit-content;
-  border-right: solid #000;
+  border-right: solid  var(--font-colour);
   padding-right: 1px;
   animation-name: blink;
   animation-duration: 900ms;
@@ -51,7 +62,7 @@ body {
 
 .menu, .menu_index {
   display: flex;
-  font-size: medium;
+  font-size: var(--font-size);
   font-weight: 600;
   padding-top: 5vh;
   gap: 5vw;
@@ -62,7 +73,7 @@ body {
   border-right: solid transparent;
   padding-right: 1px;
   text-decoration: none;
-  color: #000;
+  color:  var(--font-colour);
 }
 
 .menu_item:hover {
@@ -74,7 +85,7 @@ body {
 
 .container {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: larger;
+  font-size: var(--font-size*1.5);
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -89,7 +100,7 @@ body {
 
 @keyframes blink {
   0% {border-color: transparent;}
-  50% {border-color: #000;}
+  50% {border-color:  var(--cursor-colour);}
   100% {border-color: transparent;}
 }
 
@@ -103,18 +114,19 @@ body {
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .footer {
-  background-color: rgb(240, 234, 241);
+  background-color: rgb(152, 130, 156);
   display: flex;
   justify-content: center;
-  flex: 0.2 1 auto;
-  gap: 10px;
+  align-items: center;
+  height: 10vh;
 }
 
 img {
-  margin-top: 2vh;
+  padding: 2vh;
   height: 5vh;
   width: 5vh;
 }
@@ -126,10 +138,10 @@ p {
 
 ul {
   list-style: none;
-  font-size: medium;
+  font-size: var(--font-size);
   margin: 0;
-  border-right: #FFF solid;
-  border-left: #FFF solid;
+  border-right: var(--background-colour) solid;
+  border-left: var(--background-colour)  solid;
   padding-right: 1em;
 }
 
@@ -137,13 +149,14 @@ li {
   margin-top: 1em;
   margin-bottom: 1em;
   font-weight: 500;
+  color: var(--font-colour);
 }
 
 .dropdown {
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.2s ease-out;
-  background-color: rgb(240, 234, 241);
+  background-color: var(--collapsible-hover);
 }
 
 .collapsible {  
@@ -151,11 +164,10 @@ li {
   padding: 10px;
   border: none;
   outline: none;
-  border-right: #FFF solid;
-  border-left: #FFF solid;
-  background-color: rgb(240, 234, 241);
+  background-color: var(--collapsible);
   font-weight: 600;
   flex: 0 0 0;
+  color: var(--font-colour);
 }
 
 .collapsiblecontainer {
@@ -163,14 +175,15 @@ li {
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 0.2em;
 }
 
 .active, .collapsible:hover {
-  background-color: rgb(218, 187, 196);
+  background-color: var(--collapsible-hover);
 }
 
 .eduline {
-  border-right: #000 dashed;
+  border-right:  var(--font-colour) dashed;
   padding-left: 1.5em;
 }
 
@@ -186,21 +199,53 @@ li {
   flex: 1 0 0;
 }
 
-.achievement {
-  margin-top: 5px;
-}
-
 .project {
   display: flex;
-  background-color: aliceblue;
-  border-radius: 0.5em;
-  flex-direction: column;
-  padding-left: 5vw;
-  padding-top: 3vh;
-  margin-bottom: 2vh;
+  flex: 1 1 auto;
+  justify-content: center;
+  gap: 10vmin;
+  flex-wrap: wrap;
 }
 
 a {
   text-decoration: none;
   color: gray;
+}
+
+.imgcontainer{
+  width: 30vmin;
+  height: 30vmin;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.projlogo {
+  width: 28vmin;
+  height: 28vmin;
+  padding: auto;
+  margin: 0;
+}
+
+.projlink:hover .overlay {
+  height: 100%;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+  background-color: var(--collapsible-hover);
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align : center;
+  font-family: "Hack", Helvetica, Arial, sans-serif;
+  font-size: var(--font-size);
 }
