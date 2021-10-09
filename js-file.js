@@ -24,3 +24,12 @@ document.querySelectorAll(".collapsible").forEach((button) => {
       
   })
 })
+
+/*document.querySelectorAll(".projlogo").forEach((logo) => {
+  logo.addEventListener("mouseenter", () => {
+    logo.nextElementSibling.style.height = "100%";
+  })
+  logo.addEventListener("mouseleave", () => {
+    logo.nextElementSibling.style.height = "0";
+  })
+}) */

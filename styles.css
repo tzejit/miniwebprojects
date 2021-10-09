@@ -53,7 +53,7 @@ body {
 
 .title {
   height: fit-content;
-  border-right: solid  var(--font-colour);
+  border-right: solid  var(--font-colour) calc(var(--font-size)*0.15);
   padding-right: 1px;
   animation-name: blink;
   animation-duration: 900ms;
@@ -64,7 +64,7 @@ body {
   display: flex;
   font-size: var(--font-size);
   font-weight: 600;
-  padding-top: 5vh;
+  padding: 5vh 0;
   gap: 5vw;
 }
 
@@ -220,18 +220,25 @@ a {
   margin: 0;
 }
 
-.projlogo {
+.projlink {
   width: 28vmin;
   height: 28vmin;
-  padding: auto;
-  margin: 0;
 }
 
 .projlink:hover .overlay {
   height: 100%;
 }
 
+.projlogo {
+  box-sizing: border-box;
+  width: 28vmin;
+  height: 28vmin;
+  padding: auto;
+  margin: 0;
+}
+
 .overlay {
+  box-sizing: border-box;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -239,13 +246,15 @@ a {
   overflow: hidden;
   width: 100%;
   height: 0;
-  transition: .5s ease;
+  transition: .4s ease;
   background-color: var(--collapsible-hover);
   border-radius: 1em;
+  padding: 0 0.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align : center;
-  font-family: "Hack", Helvetica, Arial, sans-serif;
-  font-size: var(--font-size);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--font-size)*1.2);
+  font-weight: 600;
 }
