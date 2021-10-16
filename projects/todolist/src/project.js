@@ -1,10 +1,8 @@
 import {Deadline} from './todo';
 
-
-const Project = (t, des = null) => {
+const Project = (t) => {
   let projTitle = t;
   let todolist = JSON.parse(window.localStorage.getItem(projTitle)) == null ? {} : JSON.parse(window.localStorage.getItem(projTitle));
-  let desc = des;
   window.localStorage.setItem(projTitle, JSON.stringify(todolist));
 
   const addTodo = (title, desc, by) => {

@@ -1,14 +1,13 @@
-// Generates items to be placed in DOM
+// Generates project items to be placed in DOM
 import {Project} from './project';
-import {Modal} from './modal';
 import "./style.css"
 
 
-const ProjectLoader = (title, mainContainer) => {
+const ProjectLoader = (title, mainContainer, modal) => {
 
-  let modal = Modal();
   let project = Project(title);
   const listContainer = document.createElement("div");
+  mainContainer.innerText = "";
   mainContainer.appendChild(listContainer);
 
   const generateContents = () => {
@@ -35,6 +34,7 @@ const ProjectLoader = (title, mainContainer) => {
     submit.innerText = "Add";
     submit.addEventListener("click", () => {
       saveDeadline(inputContainer);
+      inputContainer.remove();
       generateContents();
     });
     inputContainer.append(title, desc, date, submit);
@@ -47,11 +47,11 @@ const ProjectLoader = (title, mainContainer) => {
     let title, desc, date = null;
     for (let i = 0; i < c.length; i++) {
       if (c[i].classList.contains("title")) {
-        title = c[i].value;
+        title = c[i].value.trim();
       } else if (c[i].classList.contains("desc")) {
-        desc = c[i].value;
+        desc = c[i].value.trim();
       } else if (c[i].classList.contains("date")) {
-        date = c[i].value;
+        date = c[i].value.trim();
       }
     }
     if (!(project.addTodo(title, desc, date))) {
