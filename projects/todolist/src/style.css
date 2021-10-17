@@ -1,3 +1,20 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --background-colour: #252525;
+  --box-colour: #424242;
+  --hover-colour: #616161;
+  --visible-colour: #515151;
+  --visible-font:#b9b4b4;
+  --active-colour: #ff9898;
+  --active-font: #3a3a3a;
+  --font-colour:#d8d2d2;
+}
+
+
 .modal-container {
   display: none; 
   position: fixed; 
@@ -13,10 +30,9 @@
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--hover-colour);
   margin: auto;
   padding: 1em;
-  border: 1px solid #888;
   width: 80%;
 }
 
@@ -25,33 +41,142 @@
   flex-direction: column;
 }
 
+.single-task-view.visible {
+  background-color: var(--visible-colour);
+  color: var(--visible-font);
+}
+
 .header-task-view {
   display: flex;
-  gap: 3em;
+  justify-content: space-between;
+}
+
+.header-task-view:hover {
+  cursor: pointer;
+  background-color: var(--font-colour);
+  color: var(--active-font);
 }
 
 body {
+  background-color: var(--background-colour);
+  color: var(--font-colour);
+}
+
+.body-container {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  background-color: var(--background-colour);
+  color: var(--font-colour);
 }
 
 .main-container {
-  flex: 7 1 auto;
+  flex: 7 7 0;
+  padding: 2em;
+  color: var(--font-colour);
 }
 
 .project-bar {
-  flex: 3 1 auto;
+  color: var(--font-colour);
+  flex: 2 2 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 1em;
 }
 
-li {
-  list-style-type: none;
-  padding: 0.2em;
+.project-item{
+  padding: 1em 0.5em;
+  padding-left: 2em;
+  text-align: left;
+  flex: 1;
+  background-color: inherit;
 }
 
-li:hover {
+.remove-project{
+  background-color: inherit;
+  padding-right: 0.5em;
+  align-self: center;
+  color: var(--font-colour);
+}
+
+.remove-project:hover {
+  color: var(--box-colour);
+}
+
+.project-wrapper:hover {
   cursor: pointer;
-  background-color: #888;
+  background-color: var(--active-colour);
+  color: var(--active-font);
 }
 
-.active {
-  background-color: #888;
+.project-wrapper{
+  display: flex;
+  flex: 1;
+  background-color: var(--box-colour);
 }
+
+.active.project-wrapper {
+  background-color: var(--active-colour);
+  color: var(--active-font);
+}
+
+.new-task {
+  color: var(--font-colour);
+  display: flex;
+  justify-content: stretch;
+}
+
+.add-button {
+  flex: 1;
+  text-align: left;
+  padding: 1em;
+  background-color: var(--box-colour);
+  border: none;
+  cursor: pointer;
+  color: var(--font-colour);
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: var(--box-colour);
+  padding: 0.2em 2em;
+  color: var(--font-colour);
+}
+
+button:hover {
+  background-color: var(--hover-colour);
+}
+
+.add-button:hover {
+  background-color: var(--hover-colour);
+}
+
+input {
+  background-color: var(--box-colour);
+  border: 1px solid var(--hover-colour);
+  margin-right: 0.4em;
+  color: var(--font-colour);
+  width: auto;
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  flex: 1 1 0;
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+
+.desc-task-view {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+

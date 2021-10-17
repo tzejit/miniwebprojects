@@ -20,6 +20,14 @@ const ProjectStorage = () => {
   const removeProject = (name) => {
     delete projects[name];
     saveChange();
+    localStorage.removeItem(name);
+  }
+
+  const validTitle = (name) => {
+    if (name == "") {
+      return false;
+    }
+    return true;
   }
 
   const saveChange = () => {
@@ -30,8 +38,8 @@ const ProjectStorage = () => {
     return PROJECTHOME;
   }
 
-  return {getProjects, addProject, getProjectHome};
+  return {getProjects, addProject, getProjectHome, validTitle, removeProject};
 
 }
 
-export {ProjectStorage};
+export {ProjectStorage,};

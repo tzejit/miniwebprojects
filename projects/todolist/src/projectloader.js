@@ -16,7 +16,22 @@ const ProjectLoader = (title, mainContainer, modal) => {
     for (let i in c) {
       listContainer.appendChild(createDeadlineView(c[i]));
     }
-    listContainer.appendChild(createDeadlineInput());
+    listContainer.appendChild(createDeadlineButton());
+  }
+
+  const createDeadlineButton = () => {
+    const inputContainer = document.createElement("div");
+    inputContainer.classList.add("new-task");
+    const but = document.createElement("button");
+    but.innerText = "Add a new task";
+    but.classList.add("add-button");
+
+    but.addEventListener("click", () => {
+      inputContainer.innerText = "";
+      inputContainer.appendChild(createDeadlineInput());
+    })
+    inputContainer.appendChild(but);
+    return inputContainer;
   }
 
   const createDeadlineInput = () => {
@@ -54,9 +69,15 @@ const ProjectLoader = (title, mainContainer, modal) => {
         date = c[i].value.trim();
       }
     }
-    if (!(project.addTodo(title, desc, date))) {
-      modal.setRepeatModal(title, desc, date);
+    if (!(project.checkValidInput(title, desc, date))) {
+      modal.setEmptyModal("Task title");
       modal.showModal();
+      return
+    }
+    if (!(project.addTodo(title, desc, date))) {
+      modal.setRepeatTaskModal(title, desc, date);
+      modal.showModal();
+      return
     };
   }
 
@@ -71,6 +92,7 @@ const ProjectLoader = (title, mainContainer, modal) => {
     title.innerText = obj["title"];
     const desc = document.createElement("div");
     desc.innerText = obj["desc"];
+    desc.classList.add("desc-task-view")
     const date = document.createElement("div");
     date.innerText = obj["by"] == undefined ? "": obj["by"];
 
@@ -79,6 +101,15 @@ const ProjectLoader = (title, mainContainer, modal) => {
     del.addEventListener("click", () => {
       singleTaskView.remove();
       project.removeTodo(obj["title"], obj["desc"], obj["by"]);
+    })
+
+    headerTaskView.addEventListener("click", () => {
+      if (window.getComputedStyle(desc).maxHeight != "0px") {
+        desc.style.maxHeight = null; 
+      } else { 
+        desc.style.maxHeight = desc.scrollHeight + "px";
+      }
+      singleTaskView.classList.toggle("visible");
     })
 
     headerTaskView.append(title, date, del);

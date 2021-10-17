@@ -8,19 +8,22 @@ const ProjectBar = (modal, mainContainer) => {
   let currentActive = storage.getProjectHome();
   const projectBar  = document.createElement("div");
   projectBar.classList.add("project-bar");
-  const projectList = document.createElement("ul");
-  projectBar.appendChild(projectList);
   ProjectLoader(currentActive, mainContainer, modal).generateContents();
 
   const generateProjects = () => {
-    projectList.textContent = "";
+    projectBar.textContent = "";
+    const projectList = document.createElement("div");
+    projectList.classList.add("project-list");
     for (let i in storage.getProjects()) {
-      const projectItem = document.createElement("li");
+      const projectWrapper = document.createElement("div");
+      projectWrapper.classList.add("project-wrapper");
+      const projectItem = document.createElement("div");
+      projectItem.classList.add("project-item");
       projectItem.innerText = i;
-      projectItem.dataset.name = i;
-      projectItem.classList.add(i);
+      projectWrapper.dataset.name = i;
+      projectWrapper.classList.add(i);
       if (i == currentActive) {
-        projectItem.classList.toggle("active");
+        projectWrapper.classList.toggle("active");
       }
       projectItem.addEventListener("click", ()=> {
         ProjectLoader(i, mainContainer, modal).generateContents();
@@ -28,15 +31,51 @@ const ProjectBar = (modal, mainContainer) => {
         currentActive = i;
         document.querySelector(`.${currentActive}`).classList.toggle("active");
       })
-      projectList.appendChild(projectItem);
+      if (i == storage.getProjectHome()) {
+        projectWrapper.append(projectItem);
+      } else {
+        projectWrapper.append(projectItem, createProjectRemoveButton(projectWrapper));
+      }
+      projectList.append(projectWrapper);
     }
-    projectBar.appendChild(createProjectInput());
+    projectBar.append(projectList, createProjectButton());
     ProjectLoader(currentActive, mainContainer, modal).generateContents();
     return projectBar;
   }
 
+  const createProjectRemoveButton =(wrapper) => {
+    const projectRemoveButton = document.createElement("span");
+    projectRemoveButton.innerHTML = "X";
+    projectRemoveButton.classList.add("remove-project");
+    projectRemoveButton.addEventListener("click", () => {
+      wrapper.remove();
+      storage.removeProject(wrapper.dataset.name);
+      if (currentActive == wrapper.dataset.name) {
+        currentActive = storage.getProjectHome();
+        generateProjects();
+      }
+    })
+    return projectRemoveButton;
+  }
+
+  const createProjectButton = () => {
+    const inputContainer = document.createElement("div");
+    inputContainer.classList.add("new-project");
+    const but = document.createElement("button");
+    but.innerText = "Add a new project";
+    but.classList.add("add-button");
+
+    but.addEventListener("click", () => {
+      inputContainer.innerText = "";
+      inputContainer.appendChild(createProjectInput());
+    })
+    inputContainer.appendChild(but);
+    return inputContainer;
+  }
+
   const createProjectInput = () => {
     const inputContainer = document.createElement("div");
+    inputContainer.classList.add("input-container");
     const title = document.createElement("input");
     title.classList.add("project-name");
     title.placeholder = "Project name"
@@ -54,9 +93,15 @@ const ProjectBar = (modal, mainContainer) => {
 
   const saveProject = (input) => {
     let title = input.firstChild.value.trim()
-    if (!(storage.addProject(title))) {
-      modal.setRepeatModal(title);
+    if (!(storage.validTitle(title))) {
+      modal.setEmptyModal("Project title");
       modal.showModal();
+      return
+    }
+    if (!(storage.addProject(title))) {
+      modal.setRepeatProjectModal(title);
+      modal.showModal();
+      return
     }
   }
 

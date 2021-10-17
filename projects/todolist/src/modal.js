@@ -13,8 +13,16 @@ const Modal = () => {
     }
   }
 
-  const setRepeatModal = (title, desc) => {
+  const setRepeatTaskModal = (title, desc) => {
     modalContent.innerText = `Task: ${title}\n${desc}\nhas already been entered`;
+  }
+
+  const setRepeatProjectModal = (title) => {
+    modalContent.innerText = `Project: ${title}\nhas already been entered`;
+  }
+
+  const setEmptyModal = (thing) => {
+    modalContent.innerText = `${thing} cannot be empty!`;
   }
 
   const showModal = () => {
@@ -25,7 +33,7 @@ const Modal = () => {
     modalContainer.style.display = "none";
   }
 
-  return {setRepeatModal, showModal};
+  return {setRepeatTaskModal, setRepeatProjectModal, setEmptyModal, showModal};
 }
 
 export {Modal};

@@ -15,6 +15,13 @@ const Project = (t) => {
     return false;
   }
 
+  const checkValidInput = (title, desc, by) => {
+    if (title == "") {
+      return false;
+    }
+    return true;
+  }
+
   const removeTodo = (title, desc, by) => {
     let task = Deadline(title, desc, by);
     delete todolist[task.getStringRep()];
@@ -29,7 +36,7 @@ const Project = (t) => {
     return todolist;
   }
 
-  return {addTodo, removeTodo, getContents};
+  return {addTodo, removeTodo, getContents, checkValidInput};
 }
 
 export {Project};
