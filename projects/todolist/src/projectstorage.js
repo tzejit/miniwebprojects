@@ -1,6 +1,6 @@
 const ProjectStorage = () => {
   const PROJECTLISTKEY = "project-keys";
-  const PROJECTHOME = "home"
+  const PROJECTHOME = "home";
   let projects = window.localStorage.getItem(PROJECTLISTKEY) == null ? {home: PROJECTHOME} : JSON.parse(window.localStorage.getItem(PROJECTLISTKEY));
   window.localStorage.setItem(PROJECTLISTKEY, JSON.stringify(projects));
 

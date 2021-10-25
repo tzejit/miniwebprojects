@@ -5,6 +5,8 @@ const ProjectBar = (modal, mainContainer) => {
   
   //initialization
   const storage = ProjectStorage();
+  const NUMBERINPUT = "%NUM%";
+  const SPACEINPUT = "%SPACE%"
   let currentActive = storage.getProjectHome();
   const projectBar  = document.createElement("div");
   projectBar.classList.add("project-bar");
@@ -19,7 +21,7 @@ const ProjectBar = (modal, mainContainer) => {
       projectWrapper.classList.add("project-wrapper");
       const projectItem = document.createElement("div");
       projectItem.classList.add("project-item");
-      projectItem.innerText = i;
+      projectItem.innerText = i.replaceAll(SPACEINPUT, " ").replaceAll(NUMBERINPUT,"");
       projectWrapper.dataset.name = i;
       projectWrapper.classList.add(i);
       if (i == currentActive) {
@@ -92,7 +94,10 @@ const ProjectBar = (modal, mainContainer) => {
   }
 
   const saveProject = (input) => {
-    let title = input.firstChild.value.trim()
+    let title = input.firstChild.value.trim().replace(/\s/g, SPACEINPUT);//.replace(/(\d+)/, NUMBERINPUT + "$1" + NUMBERINPUT )
+    if (title.match(/\d/)) {
+      title = title + NUMBERINPUT;
+    }
     if (!(storage.validTitle(title))) {
       modal.setEmptyModal("Project title");
       modal.showModal();

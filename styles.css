@@ -213,16 +213,16 @@ a {
 }
 
 .imgcontainer{
-  width: 30vmin;
-  height: 30vmin;
+  width: 29vmin;
+  height: 29vmin;
   position: relative;
   padding: 0;
   margin: 0;
 }
 
 .projlink {
-  width: 28vmin;
-  height: 28vmin;
+  width: 30vmin;
+  height: 30vmin;
 }
 
 .projlink:hover .overlay {

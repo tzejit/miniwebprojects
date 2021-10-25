@@ -39,22 +39,31 @@
 .single-task-view {
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--hover-colour);
 }
 
-.single-task-view.visible {
+.single-task-view.visible > .desc-task-view {
   background-color: var(--visible-colour);
   color: var(--visible-font);
+  padding: 1em;
+}
+
+.done-container {
+  opacity: 0.5;
 }
 
 .header-task-view {
   display: flex;
   justify-content: space-between;
+  padding: 1em;
 }
 
-.header-task-view:hover {
+.single-task-view:hover {
   cursor: pointer;
-  background-color: var(--font-colour);
-  color: var(--active-font);
+  box-shadow: 0.1em 0.1em;
+  transform: scale(1.03, 1.03);
+  transform-origin: 25%;
+  transition: transform 0.4s;
 }
 
 body {
@@ -144,6 +153,7 @@ button {
   background-color: var(--box-colour);
   padding: 0.2em 2em;
   color: var(--font-colour);
+  height: 3em;
 }
 
 button:hover {
@@ -159,7 +169,9 @@ input {
   border: 1px solid var(--hover-colour);
   margin-right: 0.4em;
   color: var(--font-colour);
-  width: auto;
+  height: 3em;
+  flex: 1;
+  line-height: 10em;
 }
 
 .project-list {
@@ -171,12 +183,31 @@ input {
   flex: 1 1 0;
   width: inherit;
   display: flex;
-  justify-content: space-between;
+  justify-content: stretch;
 }
 
 .desc-task-view {
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+.date-label, .title-label {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-status {
+  flex: 0.1;
+  max-height: 2em;
+  align-self: center;
+  background-color: #252525;
 }
 

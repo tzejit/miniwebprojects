@@ -1,7 +1,8 @@
-const Todo = (t, des, dat) => {
+const Todo = (t, des, dat, stat = false) => {
   let title = t;
   let desc = des;
   let date = dat;
+  let done = stat;
 
   const getTitle = () => {
     return title;
@@ -15,7 +16,11 @@ const Todo = (t, des, dat) => {
     return date !== null ? date : "";
   }
 
-  return {getTitle, getDesc, getDate};
+  const getStatus = () => {
+    return done;
+  }
+
+  return {getTitle, getDesc, getDate, getStatus};
 };
 
 const Event = (title, desc = null, at = null) => {
@@ -32,9 +37,9 @@ const Event = (title, desc = null, at = null) => {
   return Object.assign({}, prototype, {getDateType, getStringRep});
 }
 
-const Deadline = (title, desc = null, by = null) => {
+const Deadline = (title, desc = null, by = null, done = false) => {
 
-  const prototype = Todo(title, desc, by);
+  const prototype = Todo(title, desc, by, done);
   const getDateType = () => {
     return "end";
   }
@@ -44,10 +49,18 @@ const Deadline = (title, desc = null, by = null) => {
   }
 
   const toObj = () => {
-    return {title, desc, by}
+    return {title, desc, by, done}
   }
 
-  return Object.assign({}, prototype, {getDateType, getStringRep, toObj});
+  const toggleStatus = () => {
+    if (done) {
+      done = false;
+    } else {
+      done = true;
+    }
+  }
+
+  return Object.assign({}, prototype, {getDateType, getStringRep, toObj, toggleStatus});
 }
 
 export {Event, Deadline};

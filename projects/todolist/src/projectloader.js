@@ -7,14 +7,22 @@ const ProjectLoader = (title, mainContainer, modal) => {
 
   let project = Project(title);
   const listContainer = document.createElement("div");
+  listContainer.classList.add("list-container");
+  const doneContainer = document.createElement("div");
+  doneContainer.classList.add("done-container");
   mainContainer.innerText = "";
-  mainContainer.appendChild(listContainer);
+  mainContainer.append(listContainer, doneContainer);
 
   const generateContents = () => {
     listContainer.textContent = "";
+    doneContainer.textContent = "";
     let c = project.getContents();
     for (let i in c) {
-      listContainer.appendChild(createDeadlineView(c[i]));
+      if (!c[i]["done"]) {
+        listContainer.appendChild(createDeadlineView(c[i]));
+      } else {
+        doneContainer.appendChild(createDeadlineView(c[i]));
+      }
     }
     listContainer.appendChild(createDeadlineButton());
   }
@@ -88,13 +96,22 @@ const ProjectLoader = (title, mainContainer, modal) => {
     const headerTaskView = document.createElement("div");
     headerTaskView.classList.add("header-task-view");
 
+    const done = document.createElement("input");
+    done.type = "checkbox";
+    done.classList.add("toggle-status");
+    done.checked = obj["done"];
+    if (obj["done"]) {
+      singleTaskView.classList.add("done");
+    }
     const title = document.createElement("div");
     title.innerText = obj["title"];
+    title.classList.add("title-label");
     const desc = document.createElement("div");
     desc.innerText = obj["desc"];
-    desc.classList.add("desc-task-view")
+    desc.classList.add("desc-task-view");
     const date = document.createElement("div");
-    date.innerText = obj["by"] == undefined ? "": obj["by"];
+    date.innerText = obj["by"] == "" ? "": `Due by: ${obj["by"]}`;
+    date.classList.add("date-label");
 
     const del = document.createElement("button");
     del.innerText = "delete";
@@ -103,16 +120,29 @@ const ProjectLoader = (title, mainContainer, modal) => {
       project.removeTodo(obj["title"], obj["desc"], obj["by"]);
     })
 
-    headerTaskView.addEventListener("click", () => {
-      if (window.getComputedStyle(desc).maxHeight != "0px") {
-        desc.style.maxHeight = null; 
-      } else { 
-        desc.style.maxHeight = desc.scrollHeight + "px";
+    done.addEventListener("change", (e) => {
+      if (e.currentTarget.checked) {
+        project.toggleTodo(obj["title"], obj["desc"], obj["by"], true);
+      } else {
+        project.toggleTodo(obj["title"], obj["desc"], obj["by"], false);
       }
-      singleTaskView.classList.toggle("visible");
+      generateContents();
     })
 
-    headerTaskView.append(title, date, del);
+    singleTaskView.addEventListener("click", (e) => {
+      let em = parseFloat(getComputedStyle(desc.parentElement).fontSize);
+      let scrHeight = desc.scrollHeight/em + 2 + "em"
+      if (desc.innerText != "" && !e.target.classList.contains("toggle-status")) {
+        if (window.getComputedStyle(desc).maxHeight != "0px") {
+          desc.style.maxHeight = null; 
+        } else { 
+          desc.style.maxHeight = scrHeight;
+        }
+        singleTaskView.classList.toggle("visible");
+      }
+    })
+
+    headerTaskView.append(done, title, date, del);
     singleTaskView.append(headerTaskView, desc);
     return singleTaskView;
   }

@@ -28,6 +28,12 @@ const Project = (t) => {
     saveChange(projTitle);
   }
 
+  const toggleTodo = (title, desc, by, bool) => {
+    let task = Deadline(title, desc, by, bool);
+    todolist[task.getStringRep()] = task.toObj();
+    saveChange(projTitle);
+  }
+
   const saveChange = (title) => {
     window.localStorage.setItem(title, JSON.stringify(todolist));
   }
@@ -36,7 +42,7 @@ const Project = (t) => {
     return todolist;
   }
 
-  return {addTodo, removeTodo, getContents, checkValidInput};
+  return {addTodo, removeTodo, getContents, checkValidInput, toggleTodo};
 }
 
 export {Project};
